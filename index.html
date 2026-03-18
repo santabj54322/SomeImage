@@ -43,6 +43,20 @@
         body.active #img2 {
             visibility: visible;
         }
+        
+        #counter {
+            position: absolute;
+            top: 20px; /* 화면 위쪽에서 20px 띄움 */
+            left: 50%;
+            transform: translateX(-50%); /* 정확히 가운데 정렬 */
+            color: #ffffff; /* 텍스트 색상 */
+            font-size: 4rem; /* 텍스트 크기 */
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            z-index: 10; /* 이미지 위로 올라오도록 설정 */
+            pointer-events: none; /* 텍스트 위를 클릭해도 화면 클릭으로 인식되도록 설정 */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* 밝은 이미지 위에서도 잘 보이도록 그림자 추가 */
+        }
     </style>
 </head>
 <body>
@@ -53,10 +67,17 @@
 
     <script>
         const body = document.body;
+        const counterEl = document.getElementById('counter');
+        let clickCount = 0; // 카운트 저장 변수
 
         // 화면 누르기 시작 (마우스 클릭 & 모바일 터치)
         const activate = (e) => {
             if (e.cancelable) e.preventDefault(); 
+            
+            if (!body.classList.contains('active')) {
+                clickCount++;
+                counterEl.textContent = clickCount;
+            }
             body.classList.add('active');
         };
 
